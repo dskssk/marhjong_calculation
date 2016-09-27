@@ -8,10 +8,9 @@
   </head>
   <body>
     
-    <div id="hai-selected"></div>
     <div id="hai-selection"></div>
     <div id="controller"></div>
-
+    <div id="hai-selected"></div>
     <script type="riot/tag">
       <controller>
         <button type="button" onclick={ clear }>クリア</button>
@@ -66,6 +65,7 @@
       var mountHaiSelected = function() {
         riot.mount('#hai-selected', 'hai-selected', { list: selectedList });
       };
+      // TODO 鳴きをどうするんだ？
       var addHaiSelected = function(name) {
         var count = selectedList.filter(s => s === name).length;
         if (count >= 4) return;
