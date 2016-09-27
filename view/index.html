@@ -10,8 +10,20 @@
     
     <div id="hai-selected"></div>
     <div id="hai-selection"></div>
+    <div id="controller"></div>
 
     <script type="riot/tag">
+      <controller>
+        <button type="button" onclick={ clear }>クリア</button>
+        <button type="button" onclick={ calc }>計算</button>
+        clear() {
+          selectedList = [];
+          mountHaiSelected();
+        }
+        calc() {
+          alert('TODO 計算処理を追加する');
+        }
+      </controller>
       <hai-selected>
         <!-- 選択済みの牌一覧 -->  
         <hai each={ list } name={ x } />
@@ -45,18 +57,21 @@
         </style>
         this.imgsrc = '../img/' + opts.name + '.png';
         onClick(ev) {
-          setHaiSelected(opts.name);
+          addHaiSelected(opts.name);
         }
       </hai>
     </script>
     <script>
       var selectedList = [];
-
-      var setHaiSelected = function(name) {
-        selectedList.push(name);
+      var mountHaiSelected = function() {
         riot.mount('#hai-selected', 'hai-selected', { list: selectedList });
       };
+      var addHaiSelected = function(name) {
+        selectedList.push(name);
+        mountHaiSelected();
+      };
       riot.mount('#hai-selection', 'hai-selection');
+      riot.mount('#controller', 'controller');
     </script>
   </body>
 </html>
