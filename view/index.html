@@ -4,13 +4,59 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>麻雀計算機</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/riot/2.6.2/riot+compiler.min.js" integrity="sha256-KbOsNM4K/TeTQehueQ3qXMtKlAHkl1c8SN109s+qpew=" crossorigin="anonymous"></script>
   </head>
   <body>
     
-    <div class="hai-selection"></div>
-    <script type="riot/tag" src="./view/main.tag"></script>
+    <div id="hai-selected"></div>
+    <div id="hai-selection"></div>
+
+    <script type="riot/tag">
+      <hai-selected>
+        <!-- 選択済みの牌一覧 -->  
+        <hai each={ list } name={ x } />
+        this.list = opts.list.map(x => ({x: x}));
+      </hai-selected>
+
+      <hai-selection>
+        <!-- 選択する牌一覧 -->
+        <div>
+          <hai each={ nums } name={ x + '萬' } />
+        </div>
+        <div>
+          <hai each={ nums } name={ x + '筒' } />
+        </div>
+        <div>
+          <hai each={ nums } name={ x + '索' } />
+        </div>
+        <div>
+          <hai each={ jihai } name={ x } />
+        </div>
+        this.nums = '一二三四五六七八九'.split('').map(x => ({x:x}));
+        this.jihai = '東南西北白發中'.split('').map(x => ({x:x}));
+      </hai-selection>
+
+      <hai>
+        <img src={ imgsrc } onclick={ onClick }>
+        <style scoped>
+          img:hover {
+            opacity: .6;
+          }
+        </style>
+        this.imgsrc = '../img/' + opts.name + '.png';
+        onClick(ev) {
+          setHaiSelected(opts.name);
+        }
+      </hai>
+    </script>
     <script>
-      riot.mount('.hai-selectin', 'hai-selection');
+      var selectedList = [];
+
+      var setHaiSelected = function(name) {
+        selectedList.push(name);
+        riot.mount('#hai-selected', 'hai-selected', { list: selectedList });
+      };
+      riot.mount('#hai-selection', 'hai-selection');
     </script>
   </body>
 </html>
