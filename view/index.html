@@ -65,7 +65,7 @@
       var mountHaiSelected = function() {
         riot.mount('#hai-selected', 'hai-selected', { list: selectedList });
       };
-      // TODO 鳴きをどうするんだ？
+      
       var addHaiSelected = function(name) {
         var count = selectedList.filter(s => s === name).length;
         if (count >= 4) return;
